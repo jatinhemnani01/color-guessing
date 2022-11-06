@@ -65,11 +65,11 @@ function App() {
 
   return (
     <div className="flex justify-center items-center flex-col h-full bg-gray-800">
-      <div className="font-bold text-xl text-white m-3">
+      <div className="font-bold text-xl text-white m-2">
         Highest Score: {lsScore}
       </div>
-      <div className="font-bold text-xl text-white m-3">Score: {score}</div>
-      <div className="font-bold text-xl text-white m-3">Chances: {chances}</div>
+      <div className="font-bold text-xl text-white m-2">Score: {score}</div>
+      <div className="font-bold text-xl text-white m-2 mb-10">Chances: {chances}</div>
       <div
         style={{ backgroundColor: color }}
         className="w-96 h-60 rounded-2xl"
