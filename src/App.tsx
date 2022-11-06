@@ -3,7 +3,6 @@ import Button from "./Button";
 
 function App() {
   const [color, setColor] = useState<string>("");
-  const [correctValue, setCorrectValue] = useState<string>("");
   const [answers, setAnswers] = useState<string[]>([]);
   const [result, setResult] = useState<Result | undefined>(undefined);
 
