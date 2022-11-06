@@ -2,8 +2,10 @@ import { useEffect, useState } from "react";
 import Button from "./Button";
 
 function App() {
+  const lsScore = localStorage.getItem("score") || 0;
   const [color, setColor] = useState<string>("");
   const [answers, setAnswers] = useState<string[]>([]);
+  const [score, setScore] = useState<number>(0);
   const [chances, setChances] = useState<number>(5);
   const [result, setResult] = useState<Result | undefined>(undefined);
 
@@ -23,9 +25,18 @@ function App() {
   };
 
   const restart = () => {
+    setScore(0);
     if (chances === 0) setChances(5);
     start();
     setResult(undefined);
+  };
+
+  const scoreCount = () => {
+    setScore(score + 1);
+    const finalScore = score + 1;
+    if (lsScore < score) {
+      localStorage.setItem("score", finalScore.toString());
+    }
   };
 
   function getRandomColor() {
@@ -41,6 +52,7 @@ function App() {
     if (answer === color) {
       setResult(Result.Correct);
       start();
+      scoreCount();
     } else {
       setResult(Result.Wrong);
       setChances((current) => current - 1);
@@ -53,6 +65,10 @@ function App() {
 
   return (
     <div className="flex justify-center items-center flex-col h-full bg-gray-800">
+      <div className="font-bold text-xl text-white m-3">
+        Highest Score: {lsScore}
+      </div>
+      <div className="font-bold text-xl text-white m-3">Score: {score}</div>
       <div className="font-bold text-xl text-white m-3">Chances: {chances}</div>
       <div
         style={{ backgroundColor: color }}
