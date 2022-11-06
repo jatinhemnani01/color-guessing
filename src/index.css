@@ -1,6 +1,5 @@
+html,
 body,
-html {
-  padding: 0px;
-  margin: 0px;
+#root {
   height: 100%;
 }
