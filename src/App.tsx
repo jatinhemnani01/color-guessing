@@ -4,6 +4,7 @@ import Button from "./Button";
 function App() {
   const [color, setColor] = useState<string>("");
   const [answers, setAnswers] = useState<string[]>([]);
+  const [chances, setChances] = useState<number>(5);
   const [result, setResult] = useState<Result | undefined>(undefined);
 
   enum Result {
@@ -21,6 +22,12 @@ function App() {
     );
   };
 
+  const restart = () => {
+    if (chances === 0) setChances(5);
+    start();
+    setResult(undefined);
+  };
+
   function getRandomColor() {
     var letters = "0123456789ABCDEF";
     var color = "#";
@@ -36,6 +43,7 @@ function App() {
       start();
     } else {
       setResult(Result.Wrong);
+      setChances((current) => current - 1);
     }
   }
 
@@ -45,15 +53,24 @@ function App() {
 
   return (
     <div className="flex justify-center items-center flex-col h-full bg-gray-800">
+      <div className="font-bold text-xl text-white m-3">Chances: {chances}</div>
       <div
         style={{ backgroundColor: color }}
         className="w-96 h-60 rounded-2xl"
       ></div>
-      <div className="flex justify-center m-5">
-        {answers.map((item) => (
-          <Button key={item} item={item} onClick={() => handleAnswer(item)} />
-        ))}
-      </div>
+      {chances !== 0 && (
+        <div className="flex justify-center m-5">
+          {answers.map((item) => (
+            <Button key={item} item={item} onClick={() => handleAnswer(item)} />
+          ))}
+        </div>
+      )}
+
+      {chances === 0 && (
+        <div className="font-bold text-lg text-white m-5">
+          Game Over! <Button item="Wanna Restart?" onClick={restart} />
+        </div>
+      )}
       <div>
         {result == Result.Correct && (
           <div className="font-bold text-xl text-green-400">Correct!</div>
